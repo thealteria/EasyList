@@ -4,7 +4,7 @@ import './product_control.dart';
 import 'package:toast/toast.dart';
 
 class ProductManager extends StatefulWidget {
-  final String startingProduct;
+  final Map<String, String> startingProduct;
 
   ProductManager({this.startingProduct}) {
     /**
@@ -29,7 +29,7 @@ class ProductManager extends StatefulWidget {
 }
 
 class _ProductManagerState extends State<ProductManager> {
-  List<String> _products = [];
+  List<Map<String, String>> _products = [];
   /*
    * final => can't give a new value to the var but add or update the var
    ex: final int age = 4;
@@ -70,7 +70,7 @@ class _ProductManagerState extends State<ProductManager> {
      */
   }
 
-  void _addProducts(String product) {
+  void _addProducts(Map<String, String> product) {
     setState(() {
       _products.add(product);
       Toast.show("$product added", context);

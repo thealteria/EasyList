@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './product_manager.dart';
+import '../products/product_manager.dart';
 
 class Home extends StatelessWidget {
   @override

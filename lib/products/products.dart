@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../pages/product_page.dart';
 
 class Product extends StatelessWidget {
   //immutable means not changable
-  final List<String> products;
+  final List<Map<String, String>> products;
 
   Product([this.products = const []]) {
     /**
@@ -12,15 +13,29 @@ class Product extends StatelessWidget {
     print('[Products widget] constructor');
   }
 
-  Widget _buildProductItem(BuildContext context, int index) {
+  Widget _buildProductItem(_, int index) {
     return Card(
+        child: GestureDetector(
+      onTap: () => Navigator.push(
+            _,
+            MaterialPageRoute(
+              builder: (_) => ProductPage(
+                    products[index]['title'],
+                    products[index]['image'],
+                  ),
+            ),
+          ),
       child: Column(
         children: <Widget>[
-          Image.asset("assets/food.jpg"),
-          Text(products[index]),
+          Image.asset(
+            products[index]['image'],
+          ),
+          Text(
+            products[index]['title'],
+          ),
         ],
       ),
-    );
+    ));
   }
 
   Widget _buildProductList() {
@@ -31,8 +46,10 @@ class Product extends StatelessWidget {
         itemCount: products.length,
       );
     } else {
-      Center(
-        child: Text("No products found, please add some products"),
+      productCard = Container(
+        child: Center(
+          child: Text("No products found, please add some products"),
+        ),
       );
     }
     return productCard;

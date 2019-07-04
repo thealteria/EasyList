@@ -4,8 +4,9 @@ import '../pages/product_page.dart';
 class Product extends StatelessWidget {
   //immutable means not changable
   final List<Map<String, String>> products;
+  final Function deleteProduct;
 
-  Product([this.products = const []]) {
+  Product(this.products, {this.deleteProduct}) {
     /**
      for named arguments, {argument}, we wrap the argument with {}
      for postional argmunets, use []
@@ -16,7 +17,7 @@ class Product extends StatelessWidget {
   Widget _buildProductItem(_, int index) {
     return Card(
         child: GestureDetector(
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.push<bool>(
             _,
             MaterialPageRoute(
               builder: (_) => ProductPage(
@@ -24,14 +25,22 @@ class Product extends StatelessWidget {
                     products[index]['image'],
                   ),
             ),
-          ),
+          ).then((bool value) {
+            if (value) {
+              deleteProduct(index);
+            }
+            print(value);
+          }),
       child: Column(
         children: <Widget>[
           Image.asset(
             products[index]['image'],
           ),
-          Text(
-            products[index]['title'],
+          Container(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              products[index]['title'],
+            ),
           ),
         ],
       ),

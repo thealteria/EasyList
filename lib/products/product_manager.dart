@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './products.dart';
 import './product_control.dart';
-import 'package:toast/toast.dart';
 
 class ProductManager extends StatefulWidget {
   final Map<String, String> startingProduct;
@@ -73,7 +72,13 @@ class _ProductManagerState extends State<ProductManager> {
   void _addProducts(Map<String, String> product) {
     setState(() {
       _products.add(product);
-      Toast.show("$product added", context);
+      // Toast.show("$product added", context);
+    });
+  }
+
+  void _deleteProducts(int index) {
+    setState(() {
+      _products.removeAt(index);
     });
   }
 
@@ -87,7 +92,7 @@ class _ProductManagerState extends State<ProductManager> {
           child: ProductControl(_addProducts), //add products button
         ),
         Expanded(
-          child: Product(_products), //products
+          child: Product(_products, deleteProduct: _deleteProducts), //products
         ),
       ],
     );

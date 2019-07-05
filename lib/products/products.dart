@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../pages/product_page.dart';
 
 class Product extends StatelessWidget {
   //immutable means not changable
@@ -14,17 +13,12 @@ class Product extends StatelessWidget {
     print('[Products widget] constructor');
   }
 
-  Widget _buildProductItem(_, int index) {
+  Widget _buildProductItem(BuildContext context, int index) {
     return Card(
         child: GestureDetector(
-      onTap: () => Navigator.push<bool>(
-            _,
-            MaterialPageRoute(
-              builder: (_) => ProductPage(
-                    products[index]['title'],
-                    products[index]['image'],
-                  ),
-            ),
+      onTap: () => Navigator.pushNamed<bool>(
+            context,
+            "/product/" + index.toString(),
           ).then((bool value) {
             if (value) {
               deleteProduct(index);

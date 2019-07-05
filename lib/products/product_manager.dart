@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import './products.dart';
 import './product_control.dart';
 
-class ProductManager extends StatefulWidget {
-  final Map<String, String> startingProduct;
+class ProductManager extends StatelessWidget {
+  final List<Map<String, String>> products;
+  final Function addProducts;
+  final Function deleteProducts;
 
-  ProductManager({this.startingProduct}) {
-    /**
+  ProductManager(this.products, this.addProducts, this.deleteProducts);
+
+  // final Map<String, String> startingProduct;
+
+  // ProductManager({this.startingProduct}) {
+  /*
      * Constructor(argument) => positional argument
      * {argument} => named argument. Also this makes it an optional argument
      * ex: textColor: Colors.white
      */
-    print('[ProductManager widget] constructor');
-  }
+  //   print('[ProductManager widget] constructor');
+  // }
 
   /*
    * "_name" => class or var only use i =n that file and don't want anyone to import the class or directly
@@ -20,15 +26,15 @@ class ProductManager extends StatefulWidget {
    *            If you don't want to directly access to these methods
    */
 
-  @override
-  State<StatefulWidget> createState() {
-    print('[ProductManager widget] createState');
-    return _ProductManagerState();
-  }
-}
+//   @override
+//   State<StatefulWidget> createState() {
+//     print('[ProductManager widget] createState');
+//     return _ProductManagerState();
+//   }
+// }
 
-class _ProductManagerState extends State<ProductManager> {
-  List<Map<String, String>> _products = [];
+// class _ProductManagerState extends State<ProductManager> {
+//   List<Map<String, String>> _products = [];
   /*
    * final => can't give a new value to the var but add or update the var
    ex: final int age = 4;
@@ -55,32 +61,32 @@ class _ProductManagerState extends State<ProductManager> {
                    property.
    */
 
-  @override
-  void initState() {
-    //execute when the state is created | initeState runs before build runs
-    super.initState();
+  // @override
+  // void initState() {
+  //   //execute when the state is created | initeState runs before build runs
+  //   super.initState();
 
-    if (widget.startingProduct != null) {
-      print('[ProductManager widget] initState');
-      _products.add(widget.startingProduct);
-    }
-    /**
+  //   if (widget.startingProduct != null) {
+  //     print('[ProductManager widget] initState');
+  //     _products.add(widget.startingProduct);
+  //   }
+  /*
      * widget allows to access the properties of parent widget, like startingProduct
      */
-  }
+  // }
 
-  void _addProducts(Map<String, String> product) {
-    setState(() {
-      _products.add(product);
-      // Toast.show("$product added", context);
-    });
-  }
+  // void _addProducts(Map<String, String> product) {
+  //   setState(() {
+  //     _products.add(product);
+  //     // Toast.show("$product added", context);
+  //   });
+  // }
 
-  void _deleteProducts(int index) {
-    setState(() {
-      _products.removeAt(index);
-    });
-  }
+  // void _deleteProducts(int index) {
+  //   setState(() {
+  //     _products.removeAt(index);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +95,10 @@ class _ProductManagerState extends State<ProductManager> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.all(10.0),
-          child: ProductControl(_addProducts), //add products button
+          child: ProductControl(addProducts), //add products button
         ),
         Expanded(
-          child: Product(_products, deleteProduct: _deleteProducts), //products
+          child: Product(products, deleteProduct: deleteProducts), //products
         ),
       ],
     );
